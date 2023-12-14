@@ -1,20 +1,97 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Inline Modal</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content class="ion-padding">
+    <ion-button expand="block" (click)="setOpen(true)">Open</ion-button>
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Modal</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <p-card header="Title">
+            <ion-row>
+              <ion-col [size]="12">
+                <ion-label>p-multiSelect con appendTo="body" no funciona el filtro</ion-label>
+                <div class="card flex justify-content-center">
+                  <p-multiSelect [options]="cities" defaultLabel="Seleccionar ciudades"
+                                 [(ngModel)]="selectedCities"
+                                 optionLabel="name" appendTo="body"></p-multiSelect>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col [size]="12">
+                <ion-label>p-multiSelect sin appendTo="body" si funciona el filtro</ion-label>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+                <div class="card flex justify-content-center">
+                  <p-multiSelect [options]="cities" defaultLabel="Seleccionar ciudades"
+                                 [(ngModel)]="selectedCities2"
+                                 optionLabel="name"></p-multiSelect>
+                </div>
+              </ion-col>
+            </ion-row>
+            <br>
+            <ion-row>
+              <ion-col [size]="12">
+                <ion-label>p-dropdown con appendTo="body" no funciona el filtro</ion-label>
+
+                <div class="card flex justify-content-center">
+                  <p-dropdown [options]="countries" [(ngModel)]="selectedCountry"
+                              optionLabel="name" [filter]="true" filterBy="name"
+                              [showClear]="true" placeholder="Select a Country" appendTo="body">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                             [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
+                        <div>{{ selectedCountry.name }}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                             [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                        <div>{{ country.name }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+                <br>
+                <!--   mismo drop pero sin appendtobody           -->
+                <ion-label>p-dropdown sin appendTo="body" si funciona el filtro</ion-label>
+                <p-dropdown [options]="countries" [(ngModel)]="selectedCountry2"
+                            optionLabel="name" [filter]="true" filterBy="name"
+                            [showClear]="true" placeholder="Select a Country">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="flex align-items-center gap-2" *ngIf="selectedCountry2">
+                      <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                           [class]="'flag flag-' + selectedCountry2.code.toLowerCase()" style="width: 18px"/>
+                      <div>{{ selectedCountry2.name }}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-country pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                      <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                           [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                      <div>{{ country.name }}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </ion-col>
+            </ion-row>
+          </p-card>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
